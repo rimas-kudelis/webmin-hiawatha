@@ -31,12 +31,15 @@ sub get_nginx_info
   foreach (@args) {
     if ($_ =~ /version/) {
       my @a = split(/\//,$_);
-      my @ver = split(' ',@a[1]);
-      $vars{'version'} = @ver[0];
+#      my @ver = split(' ',@a[1]);
+      my @ver = split(' ',$a[1]);
+#      $vars{'version'} = @ver[0];
+      $vars{'version'} = $ver[0];
     }
     elsif ($_ =~ /=/) {
       my @a = split(/=/,$_);
-      $vars{@a[0]} = @a[1];
+#      $vars{@a[0]} = @a[1];
+      $vars{$a[0]} = $a[1];
     }
     else {
       $vars{"extra_info-$i"} = $_;
@@ -65,8 +68,9 @@ sub restart_button
   $args = "redir=".&urlize(&this_url());
   my @rv;
   if (&is_nginx_running()) {
-    push(@rv, "<a href=\"reload.cgi?$args\">$text{'nginx_apply'}</a>\n");
+#    push(@rv, "<a href=\"reload.cgi?$args\">$text{'nginx_apply'}</a>\n");
     #push(@rv, "<a href=\"restart.cgi?$args\">$text{'nginx_restart'}</a>\n");
+    push(@rv, "<a href=\"restart.cgi?$args\">$text{'nginx_apply'}</a>\n");
     push(@rv, "<a href=\"stop.cgi?$args\">$text{'nginx_stop'}</a>\n");
   }
   else {
@@ -85,6 +89,10 @@ sub stop_nginx
   elsif ($config{'stop_cmd'} == 2) {
     # use nginx_path
     $cmd = "$config{'nginx_path'} -s quit";
+  }
+  elsif ($config{'stop_cmd'} == 3) {
+    # use systemd
+    $cmd = "systemctl stop nginx";
   }
   elsif ($config{'stop_cmd'}) {
     # use the configured stop command
@@ -122,6 +130,9 @@ sub start_nginx
   elsif ($config{'start_cmd'} == 2) {
     # use nginx_path
     $cmd = $config{'nginx_path'};
+  }
+  elsif ($config{'start_cmd'} == 3) {
+    $cmd = "systemctl start nginx";
   }
   elsif ($config{'start_cmd'}) {
     # use the configured start command
@@ -202,7 +213,7 @@ sub delete_webfile_link
   my ($file, @array) = @_;
   my $name = basename($file);
   my $link = "$server_root/$config{'link_dir'}$name";
-	$ret = "removing $link...";
+#	$ret = "removing $link...";
 # test if symlink already deleted
  if (!-l $link) {
    return undef;
@@ -212,7 +223,8 @@ sub delete_webfile_link
  &unlock_file($link);
 # test symlink deleted
   if (-l $link) {
-    return "$retThe link for $_ was not removed.";
+#    return "${ret}The link for $_ was not removed.";
+    return "The link for $_ was not removed.";
   }
 }
 
@@ -254,7 +266,8 @@ sub parse_config
 			if ($line =~ /^\s*$a\s*([^;]+);$/) {
 				$temp = $1;
 				$temp = "" if $i == 0;
-					$found{$a} = $1;
+#				push (@{$found{$a}}, $1);
+				push (@{$found{$a}}, split (" ", $1));
 			}
 		}
 	}

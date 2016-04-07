@@ -2,8 +2,8 @@ index_title=nginx webserver
 index_version=nginx version $1
 index_defserv=Default Host
 
-index_delete=Delete Selected Servers
-index_enabled=Enabled (Active)?
+index_delete=Select
+index_enabled=Active (click to toggle)?
 index_name=Server Name
 index_addr=Address
 index_port=Port
@@ -11,8 +11,8 @@ index_root=Document Root
 index_url=URL
 index_view=View
 
-disa=Active : (click to Disable)
-enab=(click to Enable)
+disa=Active : (click to Disable <i class="fa fa-unlink"></i>)
+enab=(click to Enable <i class="fa fa-link"></i>)
 
 gl_edit=Edit nginx.conf
 gl_proxy=Edit proxy.conf
@@ -33,3 +33,5 @@ stop_esig=Failed to send SIGTERM to process $1
 start_err=Failed to start nginx
 
 test_err=Couldn't test nginx configuration
+
+sep_by=, separated by

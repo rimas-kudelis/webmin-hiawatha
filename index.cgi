@@ -10,7 +10,7 @@ my %rv;
 # add virtual servers
 my @virts = &get_servers();
 foreach $v (@virts) {
-  $idx = &indexof($v, @$conf);
+#  $idx = &indexof($v, @$conf);
   $sn = basename($v);
   push(@vidx, $sn);
   push(@vname, $sn);
@@ -18,9 +18,9 @@ foreach $v (@virts) {
 	push (@link2, "mklink.cgi?vhost=$sn");
 	push (@ulink, "unlink.cgi?vhost=$sn");
 	%rv = &parse_config ("$config{'nginx_dir'}/$config{'virt_dir'}/$sn", "server_name", "port", "root");
-	push (@vaddr, $rv{'server_name'});
-	push (@vport, $rv{'port'});
-	push (@vroot, $rv{'root'});
+	push (@vaddr, join ($config{'join_ch'}, @{$rv{'server_name'}}));
+	push (@vport, join ($config{'join_ch'}, @{$rv{'port'}}));
+	push (@vroot, join ($config{'join_ch'}, @{$rv{'root'}}));
   push(@vurl, "http://$sn/");
 }
 
@@ -58,15 +58,15 @@ print ui_tabs_start_tab('mode', 'existing');
     $text{'index_delete'},
     $text{'index_name'},
 	$text{'index_enabled'},
-    $text{'index_addr'},
+    $text{'index_addr'}.$text{'sep_by'}." '".$config{'join_ch'}."'",
     $text{'index_port'},
-    $text{'index_root'},
+    $text{'index_root'}.$text{'sep_by'}." '".$config{'join_ch'}."'",
     $text{'index_url'} ], 100);
   for($i=0; $i<@vname; $i++) {
     my @cols;
     push(@cols, "<a href=\"$vlink[$i]\">$vname[$i]</a>");
-	push(@cols, "<a href=\"$ulink[$i]\">$text{'disa'}</a>") if -e $config{'nginx_dir'}.'/'.$config{'link_dir'}.$vname[$i];
-	push(@cols, "<a href=\"$link2[$i]\">$text{'enab'}</a>") if !-e $config{'nginx_dir'}.'/'.$config{'link_dir'}.$vname[$i];
+	push(@cols, "<a href=\"$ulink[$i]\">$text{'disa'}</a>") if -e "$config{'nginx_dir'}/$config{'link_dir'}/$vname[$i]";
+	push(@cols, "<a href=\"$link2[$i]\">$text{'enab'}</a>") if !-e "$config{'nginx_dir'}/$config{'link_dir'}/$vname[$i]";
     push(@cols, &html_escape($vaddr[$i]));
     push(@cols, &html_escape($vport[$i]));
     push(@cols, &html_escape($vroot[$i]));

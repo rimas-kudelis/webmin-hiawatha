@@ -1,9 +1,9 @@
 readonly=1
 syslog=1
 depends=1.500
-name=NginX
-desc=NginX webserver
+name=MyNginX
+desc=My NginX webserver
 longdesc=Configure configuration of NginX
 category=servers
 os_support=*-linux solaris freebsd
-version=0.09
+version=0.09c
