@@ -1,6 +1,12 @@
 # webmin-nginx
 ### Changes
 
+0.09d
+
+*Fixed enable / disable
+
+*Added test if installed
+
 0.09c
 
 *Adjusted headings
