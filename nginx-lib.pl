@@ -197,13 +197,18 @@ sub test_config
 # Creates a link in the debian-style link directory for a new website's file
 sub create_webfile_link
 {
-  my ($file, @array) = @_;
-  my $name = basename($file);
-  my $link = "$server_root/$config{'link_dir'}$name";
-  &lock_file($file);
+	my ($file, @array) = @_;
+	my $name = basename($file);
+	my $link = "$server_root/$config{'link_dir'}/$name";
+	&lock_file($file);
 #	$ret = "linking $file to $link...";
-  symlink($file, $link);
-  &unlock_file($file);
+	if (!symlink($file, $link)) {
+		return $1;
+	}
+	if (!-l $link) {
+		return undef;
+	}
+	&unlock_file($file);
 #	return $ret;
 }
 
@@ -212,7 +217,7 @@ sub delete_webfile_link
 {
   my ($file, @array) = @_;
   my $name = basename($file);
-  my $link = "$server_root/$config{'link_dir'}$name";
+  my $link = "$server_root/$config{'link_dir'}/$name";
 #	$ret = "removing $link...";
 # test if symlink already deleted
  if (!-l $link) {
