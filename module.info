@@ -6,4 +6,4 @@ desc=My NginX webserver
 longdesc=Configure configuration of NginX
 category=servers
 os_support=*-linux solaris freebsd
-version=0.09c
+version=0.09d
