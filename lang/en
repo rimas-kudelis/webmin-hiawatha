@@ -1,6 +1,11 @@
 index_title=nginx webserver
 index_version=nginx version $1
 index_defserv=Default Host
+index_notfound=The Nginx Webserver could not be found, as stated in your configuration<tt>$1</tt>:
+index_either= Either
+index_modify=<br /><br /> 1) Module configuration is probably incorrect - click <a href="$1">HERE</a> to modify it
+index_install=, or <br /><br /> 2)
+index_mismatch=<p>Nginx is installed at <tt>$1</tt>, but the path in your configuration settings is <tt>$2</tt>.</p>
 
 index_delete=Select
 index_enabled=Active (click to toggle)?
@@ -17,6 +22,7 @@ enab=(click to Enable <i class="fa fa-link"></i>)
 gl_edit=Edit nginx.conf
 gl_proxy=Edit proxy.conf
 gl_details=View nginx details
+gl_dirs=Make Debian-style directory structure
 
 manual_title=Edit Config File
 manual_header=Use the text box below to manually edit the nginx config file for $1.
@@ -35,3 +41,8 @@ start_err=Failed to start nginx
 test_err=Couldn't test nginx configuration
 
 sep_by=, separated by
+
+mk_dirs_fail=Failed to create $1 ($2)
+mk_dirs_ok=Created $1 OK
+mk_dirs_linkfail=Failed to link $1 to $2 ($3)
+mk_dirs_linkok=Created link $1
