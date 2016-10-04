@@ -278,11 +278,9 @@ sub parse_config
 		chop;
 		$line =~ s/^\s*#.*$//g;
 		foreach $a (@params) {
-			if ($line =~ /^\s*$a\s*=\s*([^\s]+)$/) {
+			if ($line =~ /^\s*$a\s*=\s*(.+)$/) {
 				$temp = $1;
-				$temp = "" if $i == 0;
-#				push (@{$found{$a}}, $1);
-				push (@{$found{$a}}, split (" ", $1));
+				push (@{$found{$a}}, split ("\s*,\s*", $1));
 			}
 		}
 	}
