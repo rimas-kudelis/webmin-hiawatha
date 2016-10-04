@@ -7,7 +7,7 @@ index_modify=<br /><br /> 1) Module configuration is probably incorrect - click 
 index_install=, or <br /><br /> 2)
 index_mismatch=<p>Nginx is installed at <tt>$1</tt>, but the path in your configuration settings is <tt>$2</tt>.</p>
 
-index_delete=Select
+index_delete=Delete
 index_enabled=Active (click to toggle)?
 index_name=Server Name
 index_addr=Address
