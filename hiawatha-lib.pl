@@ -1,6 +1,6 @@
 #!/usr/bin/perl
-# nginx-lib.pl
-# Common functions for nginx configuration
+# hiawatha-lib.pl
+# Common functions for Hiawatha configuration
 
 BEGIN { push(@INC, ".."); };
 use WebminCore;
@@ -10,46 +10,40 @@ init_config();
 
 #used in edit server and create server (maybe more)
 #must go away
-our $server_root = $config{'nginx_dir'};
-our %nginfo = &get_nginx_info();
+our $server_root = $config{'hiawatha_dir'};
+our %server_info = &get_hiawatha_info();
 
 #simple list of files in sites-available
 sub get_servers
 {
-	my $dir = "$config{'nginx_dir'}/$config{'virt_dir'}";
+  my $dir = "$config{'hiawatha_dir'}/$config{'virt_dir'}";
   my @files = grep{-f $_}glob("$dir/*");
-return @files;
+  return @files;
 }
 
-# gets info from running nginx
-sub get_nginx_info
+# gets info from running Hiawatha
+sub get_hiawatha_info
 {
-  my $info = &backquote_command("nginx -V 2>&1");
-  my @args = split(/--/,$info);
+  my $info = &backquote_command("hiawatha -v 2>&1");
+  my @lines = split(/\n/,$info);
+  my @args = split(/,\s+/,$lines[0]); # ignore the copyright line
   my %vars;
-  my $i = 0;
+  my @modules;
   foreach (@args) {
-    if ($_ =~ /version/) {
-      my @a = split(/\//,$_);
-#      my @ver = split(' ',@a[1]);
-      my @ver = split(' ',$a[1]);
-#      $vars{'version'} = @ver[0];
+    if ($_ =~ /Hiawatha\s+v/) {
+      my @a = split(/\sv/,$_);
+      my @ver = split(/\s/,$a[1]);
       $vars{'version'} = $ver[0];
     }
-    elsif ($_ =~ /=/) {
-      my @a = split(/=/,$_);
-#      $vars{@a[0]} = @a[1];
-      $vars{$a[0]} = $a[1];
-    }
     else {
-      $vars{"extra_info-$i"} = $_;
-      $i++;
+      push(@modules, $_);
     }
   }
+  $vars{'modules'} = [ @modules ];
   return %vars;
 }
 
-sub is_nginx_running
+sub is_hiawatha_running
 {
   my $pidfile = &get_pid_file();
   return &check_pid_file($pidfile);
@@ -57,9 +51,10 @@ sub is_nginx_running
 
 sub get_pid_file
 {
-# what about when the pid isnt in config or nginx?
   return $config{'pid_file'} if ($config{'pid_file'});
-  return $nginfo{'pid-path'} if ($nginfo{'pid-path'});
+  #return &server_info{'pid-path'} if ($server_info{'pid-path'});
+  # When the pid is not in config or hiawatha output:
+  return "/var/run/hiawatha.pid";
 }
 
 sub restart_button
@@ -67,32 +62,29 @@ sub restart_button
   my $rv;
   $args = "redir=".&urlize(&this_url());
   my @rv;
-  if (&is_nginx_running()) {
-#    push(@rv, "<a href=\"reload.cgi?$args\">$text{'nginx_apply'}</a>\n");
-    #push(@rv, "<a href=\"restart.cgi?$args\">$text{'nginx_restart'}</a>\n");
-    push(@rv, "<a href=\"restart.cgi?$args\">$text{'nginx_apply'}</a>\n");
-    push(@rv, "<a href=\"stop.cgi?$args\">$text{'nginx_stop'}</a>\n");
+  if (&is_hiawatha_running()) {
+    #push(@rv, "<a href=\"reload.cgi?$args\">$text{'hiawatha_apply'}</a>\n");
+    #push(@rv, "<a href=\"restart.cgi?$args\">$text{'hiawatha_restart'}</a>\n");
+    push(@rv, "<a href=\"restart.cgi?$args\">$text{'hiawatha_apply'}</a>\n");
+    push(@rv, "<a href=\"stop.cgi?$args\">$text{'hiawatha_stop'}</a>\n");
   }
   else {
-    push(@rv, "<a href=\"start.cgi?$args\">$text{'nginx_start'}</a>\n");
+    push(@rv, "<a href=\"start.cgi?$args\">$text{'hiawatha_start'}</a>\n");
   }
   return join("<br>\n", @rv);
 }
 
-# Attempts to stop the running nginx process
-sub stop_nginx
+# Attempts to stop the running hiawatha process
+sub stop_hiawatha
 {
   my ($out,$cmd);
   if ($config{'stop_cmd'} == 1) {
-    $cmd = "/etc/init.d/nginx stop";
+    # use init.d
+    $cmd = "/etc/init.d/hiawatha stop";
   }
   elsif ($config{'stop_cmd'} == 2) {
-    # use nginx_path
-    $cmd = "$config{'nginx_path'} -s quit";
-  }
-  elsif ($config{'stop_cmd'} == 3) {
     # use systemd
-    $cmd = "systemctl stop nginx";
+    $cmd = "systemctl stop hiawatha";
   }
   elsif ($config{'stop_cmd'}) {
     # use the configured stop command
@@ -107,39 +99,38 @@ sub stop_nginx
   }
   else {
     # kill the process if nothing else works
-    my $pid = &is_nginx_running() || return &text('stop_epid');
+    my $pid = &is_hiawatha_running() || return &text('stop_epid');
     &kill_logged('TERM', $pid) || return &text('stop_esig', $pid);
   }
   return undef;
 }
 
-# Attempts to start nginx
-sub start_nginx
+# Attempts to start hiawatha
+sub start_hiawatha
 {
   my ($out,$cmd);
-  # stop nginx if running
-  if (&is_nginx_running()) {
-    my $err = &stop_nginx();
+  # stop hiawatha if running
+  if (&is_hiawatha_running()) {
+    my $err = &stop_hiawatha();
     &error($err) if ($err);
     &webmin_log("stop");
   }
 
   if ($config{'start_cmd'} == 1) {
-    $cmd = "/etc/init.d/nginx start";
+    # use init.d
+    $cmd = "/etc/init.d/hiawatha start";
   }
   elsif ($config{'start_cmd'} == 2) {
-    # use nginx_path
-    $cmd = $config{'nginx_path'};
-  }
-  elsif ($config{'start_cmd'} == 3) {
-    $cmd = "systemctl start nginx";
+    # use systemd
+    $cmd = "systemctl start hiawatha";
   }
   elsif ($config{'start_cmd'}) {
     # use the configured start command
     $cmd = $config{'start_cmd'};
   }
   else {
-    $cmd = $config{'nginx_path'};
+    # use hiawatha_path
+    $cmd = $config{'hiawatha_path'};
   }
 
   &clean_environment();
@@ -152,19 +143,24 @@ sub start_nginx
 }
 
 # Attempts to reload config files
-sub reload_nginx
+sub reload_hiawatha
 {
   my ($out,$cmd);
   if ($config{'apply_cmd'} == 1) {
-    $cmd = "/etc/init.d/nginx reload";
+    # use init.d
+    $cmd = "/etc/init.d/hiawatha restart";
   }
   elsif ($config{'apply_cmd'} == 2) {
-    # use nginx_path
-    $cmd = "$config{'nginx_path'} -s reload";
+    # use systemd
+    $cmd = "systemctl restart hiawatha";
+  }
+  elsif ($config{'apply_cmd'}) {
+    # use the configured script command
+    $cmd = $config{'apply_cmd'};
   }
   else {
-    # restart nginx
-    &start_nginx();
+    # restart Hiawatha
+    &start_hiawatha();
     return undef;
   }
 
@@ -179,19 +175,33 @@ sub reload_nginx
 # test config files
 sub test_config
 {
-  return undef;
-  if ($config{'test_config'} == 1) {
-    my $out = &backquote_command("(/etc/init.d/nginx configtest) 2>&1");
-    if ($out =~ /failed/) {
-      return "<pre>".&html_escape($out)."</pre>";
-    }
-    else {
-#    elsif ($out =~ /successful/) {
-      return undef;
-    }
-    return $text{'test_err'};
+  my ($cmd);
+  if ($config{'test_config'} == 0) {
+    return undef;
   }
-  return undef;
+  elsif ($config{'test_cmd'} == 1) {
+    # use init.d
+    $cmd = "/etc/init.d/hiawatha check";
+  }
+  elsif ($config{'test_cmd'}) {
+    # use the configured script command
+    $cmd = $config{'test_cmd'};
+  }
+  else {
+    # use hiawatha_path
+    $cmd = "$config{'hiawatha_path'} -k"
+  }
+
+  my $out = &backquote_command("($cmd) 2>&1");
+  if ($out =~ /Configuration OK/) {
+    return undef;
+  }
+  else {
+  #elsif ($out =~ /Syntax error in/) {
+    return "<pre>".&html_escape($out)."</pre>";
+  }
+
+  #return $text{'test_err'};
 }
 
 # Creates a link in the debian-style link directory for a new website's file
@@ -268,7 +278,7 @@ sub parse_config
 		chop;
 		$line =~ s/^\s*#.*$//g;
 		foreach $a (@params) {
-			if ($line =~ /^\s*$a\s*([^;]+);$/) {
+			if ($line =~ /^\s*$a\s*=\s*([^\s]+)$/) {
 				$temp = $1;
 				$temp = "" if $i == 0;
 #				push (@{$found{$a}}, $1);

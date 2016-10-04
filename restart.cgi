@@ -1,13 +1,13 @@
 #!/usr/bin/perl
 # reload.cgi
-# reload nginx config file or restart nginx
+# reload Hiawatha config file or restart Hiawatha
 
-require './nginx-lib.pl';
+require './hiawatha-lib.pl';
 &ReadParse();
 
 my $err = &test_config();
 &error($err."will not reload") if ($err);
-my $err = &reload_nginx();
+my $err = &reload_hiawatha();
 &error($err) if ($err);
 sleep(1);
 &webmin_log("apply");

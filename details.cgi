@@ -1,14 +1,20 @@
 #!/usr/bin/perl
 # details.cgi
-# Display list of nginx details
+# Display list of Hiawatha details
 
-require './nginx-lib.pl';
+require './hiawatha-lib.pl';
 &ReadParse();
 
 &ui_print_header($title, "Server Details", "");
 
-  while ( my ($key, $value) = each(%nginfo) ) {
-    print "$key => $value<br>";
+  print "Server version: $server_info{'version'}<br><br>";
+
+  print "Compiled with:<br><ul>";
+
+  foreach(@{ $server_info{'modules'} }) {
+    print "<li>$_</li>";
   }
 
-&ui_print_footer("$return", "nginx index");
+  print "</ul>";
+
+&ui_print_footer("$return", "Hiawatha index");

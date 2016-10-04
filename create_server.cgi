@@ -2,7 +2,7 @@
 # create_server.cgi
 # Create a new virtual host.
 
-require './nginx-lib.pl';
+require './hiawatha-lib.pl';
 &ReadParseMime();
 
 my $file = "$server_root/$config{'virt_dir'}/$in{'newserver'}";

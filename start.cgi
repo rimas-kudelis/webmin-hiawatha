@@ -1,13 +1,13 @@
 #!/usr/bin/perl
 # start.cgi
-# Start nginx
+# Start Hiawatha
 
-require './nginx-lib.pl';
+require './hiawatha-lib.pl';
 &ReadParse();
 
 my $err = &test_config();
 &error($err."will not start") if ($err);
-my $err = &start_nginx();
+my $err = &start_hiawatha();
 &error($err) if ($err);
 sleep(1);
 &webmin_log("start");

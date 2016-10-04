@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # Remove link to virtual server
 
-require './nginx-lib.pl';
+require './hiawatha-lib.pl';
 &ReadParse();
 
 my $file = "$server_root/$config{'virt_dir'}/$in{'vhost'}";

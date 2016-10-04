@@ -2,7 +2,7 @@
 # edit_server.cgi
 # Display a text box for manually editing directives
 
-require './nginx-lib.pl';
+require './hiawatha-lib.pl';
 &ReadParse();
 
 my $file = "$server_root/$config{'virt_dir'}/$in{'editfile'}";

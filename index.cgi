@@ -2,7 +2,7 @@
 # index.cgi
 # Display a list of all virtual servers, and links for various types
 
-require './nginx-lib.pl';
+require './hiawatha-lib.pl';
 &ReadParse();
 
 my %rv;
@@ -17,29 +17,29 @@ foreach $v (@virts) {
     push(@vlink, "edit_server.cgi?editfile=$sn");
 	push (@link2, "mklink.cgi?vhost=$sn");
 	push (@ulink, "unlink.cgi?vhost=$sn");
-	%rv = &parse_config ("$config{'nginx_dir'}/$config{'virt_dir'}/$sn", "server_name", "port", "root");
-	push (@vaddr, join ($config{'join_ch'}, @{$rv{'server_name'}}));
-	push (@vport, join ($config{'join_ch'}, @{$rv{'port'}}));
-	push (@vroot, join ($config{'join_ch'}, @{$rv{'root'}}));
+	%rv = &parse_config ("$config{'hiawatha_dir'}/$config{'virt_dir'}/$sn", "Hostname", "Port", "WebsiteRoot");
+	push (@vaddr, join ($config{'join_ch'}, @{$rv{'Hostname'}}));
+	push (@vport, join ($config{'join_ch'}, @{$rv{'Port'}}));
+	push (@vroot, join ($config{'join_ch'}, @{$rv{'WebsiteRoot'}}));
     push(@vurl, "http://$sn/");
 }
 
 # Page header
 &ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1, undef,
 	&restart_button()."<br>".
-	&help_search_link("nginx", "man", "doc", "google"), undef, undef,
-	&text('index_version', $nginfo{'version'}));
+	&help_search_link("hiawatha", "man", "doc", "google"), undef, undef,
+	&text('index_version', $server_info{'version'}));
 #&ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1);
 
-# Check if nginx is installed
-if (!-x $config{'nginx_path'}) {
-	print &text('index_notfound', $config{'nginx_path'}),
+# Check if Hiawatha is installed
+if (!-x $config{'hiawatha_path'}) {
+	print &text('index_notfound', $config{'hiawatha_path'}),
 		$text{'index_either'}. &text('index_modify',
 			"$gconfig{'webprefix'}/config.cgi?$module_name").
 		$text{'index_install'};	#, "<p>\n";
 
 	&foreign_require("software", "software-lib.pl");
-	$lnk = &software::missing_install_link("nginx", $text{'index_nginx'},
+	$lnk = &software::missing_install_link("hiawatha", $text{'index_hiawatha'},
 		"../$module_name/", $text{'index_title'});
 	print $lnk,"<p>\n" if ($lnk);
 
@@ -49,9 +49,9 @@ if (!-x $config{'nginx_path'}) {
 
 ## Check if configuration matches which command
 # which gets the wrong path!!
-#my $whnginx = &backquote_command("(which nginx) 2>&1");
-#if ($whnginx ne $config{'nginx_path'}) {
-#	print &text('index_mismatch', $whnginx, $config{'nginx_path'}),
+#my $whhiawatha = &backquote_command("(which hiawatha) 2>&1");
+#if ($whhiawatha ne $config{'hiawatha_path'}) {
+#	print &text('index_mismatch', $whhiawatha, $config{'hiawatha_path'}),
 #		&text('index_modify', "$gconfig{'webprefix'}/config.cgi?$module_name");
 #
 #	&ui_print_footer("/", $text{'index_return'});
@@ -64,13 +64,13 @@ if (!-x $config{'nginx_path'}) {
 print ui_tabs_start(\@tabs, 'mode', 'existing');
 
 print ui_tabs_start_tab('mode', 'global');
-    $global_icon = { "icon" => "images/nginx_edit.png",
+    $global_icon = { "icon" => "images/hiawatha_edit.gif",
 	    "name" => $text{'gl_edit'},
-	    "link" => "edit_server.cgi?editfile=nginx.conf" };
-    $proxy_icon = { "icon" => "images/edit_proxy.png",
-	    "name" => $text{'gl_proxy'},
-	    "link" => "edit_server.cgi?editfile=proxy.conf" };
-    $det_icon = { "icon" => "images/nginx_details.png",
+	    "link" => "edit_server.cgi?editfile=hiawatha.conf" };
+    $proxy_icon = { "icon" => "images/edit_cgiwrapper.gif",
+	    "name" => $text{'gl_cgiwrapper'},
+	    "link" => "edit_server.cgi?editfile=cgi-wrapper.conf" };
+    $det_icon = { "icon" => "images/hiawatha_details.gif",
 	    "name" => $text{'gl_details'},
 	    "link" => "details.cgi" };
     $mk_dirs = { "icon" => "images/files.gif",
@@ -96,8 +96,8 @@ print ui_tabs_start_tab('mode', 'existing');
     for($i=0; $i<@vname; $i++) {
 	    my @cols;
 	    push(@cols, "<a href=\"$vlink[$i]\">$vname[$i]</a>");
-		push(@cols, "<a href=\"$ulink[$i]\">$text{'disa'}</a>") if -e "$config{'nginx_dir'}/$config{'link_dir'}/$vname[$i]";
-		push(@cols, "<a href=\"$link2[$i]\">$text{'enab'}</a>") if !-e "$config{'nginx_dir'}/$config{'link_dir'}/$vname[$i]";
+		push(@cols, "<a href=\"$ulink[$i]\">$text{'disa'}</a>") if -e "$config{'hiawatha_dir'}/$config{'link_dir'}/$vname[$i]";
+		push(@cols, "<a href=\"$link2[$i]\">$text{'enab'}</a>") if !-e "$config{'hiawatha_dir'}/$config{'link_dir'}/$vname[$i]";
 	    push(@cols, &html_escape($vaddr[$i]));
 	    push(@cols, &html_escape($vport[$i]));
 	    push(@cols, &html_escape($vroot[$i]));

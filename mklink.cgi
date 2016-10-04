@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # Delete of virtual servers
 
-require './nginx-lib.pl';
+require './hiawatha-lib.pl';
 &ReadParse();
 
 my $file = "$server_root/$config{'virt_dir'}/$in{'vhost'}";
@@ -14,8 +14,8 @@ my $err = &create_webfile_link($file);
 if ($err) {
 	&ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1, undef,
 		&restart_button()."<br>".
-		&help_search_link("nginx", "man", "doc", "google"), undef, undef,
-		&text('index_version', $nginfo{'version'}));
+		&help_search_link("hiawatha", "man", "doc", "google"), undef, undef,
+		&text('index_version', $server_info{'version'}));
 
 		&ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1);
 		&error($err);

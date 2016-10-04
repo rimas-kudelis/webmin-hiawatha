@@ -2,7 +2,7 @@
 # edit_save.cgi
 # Save manually entered directives
 
-require './nginx-lib.pl';
+require './hiawatha-lib.pl';
 &ReadParseMime();
 
 my $file = $in{'editfile'};

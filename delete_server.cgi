@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # Delete of virtual servers
 
-require './nginx-lib.pl';
+require './hiawatha-lib.pl';
 &ReadParse();
 
 my @del_serv = split(/\0/,$in{'d'});

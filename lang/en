@@ -1,44 +1,44 @@
-index_title=nginx webserver
-index_version=nginx version $1
+index_title=Hiawatha webserver
+index_version=Hiawatha version $1
 index_defserv=Default Host
-index_notfound=The Nginx Webserver could not be found, as stated in your configuration<tt>$1</tt>:
+index_notfound=The Hiawatha Webserver could not be found, as stated in your configuration<tt>$1</tt>:
 index_either= Either
 index_modify=<br /><br /> 1) Module configuration is probably incorrect - click <a href="$1">HERE</a> to modify it
 index_install=, or <br /><br /> 2)
-index_mismatch=<p>Nginx is installed at <tt>$1</tt>, but the path in your configuration settings is <tt>$2</tt>.</p>
+index_mismatch=<p>Hiawatha is installed at <tt>$1</tt>, but the path in your configuration settings is <tt>$2</tt>.</p>
 
 index_delete=Delete
-index_enabled=Active (click to toggle)?
+index_enabled=Active? (click to toggle)
 index_name=Server Name
-index_addr=Address
+index_addr=Addresses
 index_port=Port
-index_root=Document Root
+index_root=Document Roots
 index_url=URL
 index_view=View
 
-disa=Active : (click to Disable <i class="fa fa-unlink"></i>)
-enab=(click to Enable <i class="fa fa-link"></i>)
+disa=Active (click to Disable)
+enab=Inactive (click to Enable)
 
-gl_edit=Edit nginx.conf
-gl_proxy=Edit proxy.conf
-gl_details=View nginx details
+gl_edit=Edit hiawatha.conf
+gl_cgiwrapper=Edit cgi-wrapper.conf
+gl_details=View Hiawatha details
 gl_dirs=Make Debian-style directory structure
 
 manual_title=Edit Config File
-manual_header=Use the text box below to manually edit the nginx config file for $1.
+manual_header=Use the text box below to manually edit the Hiawatha config file for $1.
 
-nginx_apply=Apply Changes
-nginx_stop=Stop nginx
-nginx_start=Start nginx
+hiawatha_apply=Apply Changes
+hiawatha_stop=Stop Hiawatha
+hiawatha_start=Start Hiawatha
 
-#stop_nginx=nginx stopped manually
+#stop_hiawatha=Hiawatha stopped manually
 stop_epid=Failed to open PID file
 stop_esig=Failed to send SIGTERM to process $1
 
-#start_nginx=nginx started manually
-start_err=Failed to start nginx
+#start_hiawatha=Hiawatha started manually
+start_err=Failed to start Hiawatha
 
-test_err=Couldn't test nginx configuration
+#test_err=Couldn't test Hiawatha configuration
 
 sep_by=, separated by
 

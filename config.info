@@ -2,27 +2,29 @@ line1=Configurable options,11
 show_order=Order virtual servers by,1,0-Server name,1-IP Address
 #max_servers=Maximum number of servers to display,0,5
 
-virt_dir=Directory to add virtual servers to (no dir slashes),0,sites-available,,(relative to nginx server config directory)
+virt_dir=Directory to add virtual servers to (no dir slashes),0,sites-available,,(relative to Hiawatha server config directory)
 #virt_dir=Directory to add virtual servers to (absolute),7
 virt_name=Filename pattern for virtual servers,3,Default (servername.conf)
-link_dir=Directory to create links in for new virtual servers (no dir slashes),0,sites-enabled,,(relative to nginx server config directory)
+link_dir=Directory to create links in for new virtual servers (no dir slashes),0,sites-enabled,,(relative to Hiawatha server config directory)
 #link_dir=Directory to create links in for new virtual servers (absolute),7
 
-join_ch=Display directive values separated by,0," , "
+join_ch=Display directive values separated by,0,", "
 
-test_config=Test config file before applying changes?,1,1-Yes,0-No (version 0.7.64 tests this either way)
-test_nginx=Test configuration with command,1,1-Use init.d,0-Use nginx command
+test_config=Test config file before applying changes?,1,1-Yes,0-No
+test_cmd=Test configuration with command,10,1-Use init.d,-Use Hiawatha command
 
 line2=System configuration,11
-nginx_dir=nginx server config directory,7
-nginx_path=Path to nginx executable,8
-nginx_version=nginx version,3,Work out automatically
+hiawatha_dir=Hiawatha server config directory,7
+hiawatha_path=Path to hiawatha executable,8
+hiawatha_version=Hiawatha version,3,Work out automatically
 
-start_cmd=Command to start nginx,10,1-Use init.d,2-Use nginx command,3-SystemCtl Start Nginx
-stop_cmd=Command to stop nginx,10,1-Use init.d,2-Use nginx command,3-SystemCtl Stop Nginx
-apply_cmd=Command to apply configuration,1,1-Use init.d reload,2-Use nginx command,-Run Stop and Start commands
-#nginx_conf=Path to nginx.conf,3,Automatic
-nginx_conf=Path to nginx.conf,8
-#mime_types=Path to mime.types,3,Automatic
-mime_types=Path to mime.types,8
-pid_file=Path to nginx PID file,3,Work out automatically
+start_cmd=Command to start Hiawatha,10,1-Use init.d,2-Use systemctl,-Use Hiawatha command
+stop_cmd=Command to stop Hiawatha,10,1-Use init.d,2-Use systemctl,-Kill the Hiawatha process
+apply_cmd=Command to apply configuration,10,1-Use init.d,2-Use systemctl,-Run Stop and Start commands
+#hiawatha_conf=Path to hiawatha.conf,3,Automatic
+hiawatha_conf=Path to hiawatha.conf,8
+#mimetype_conf=Path to mimetype.conf,3,Automatic
+mimetype_conf=Path to mimetype.conf,8
+#cgiwrapper_conf=Path to cgi-wrapper.conf,3,Automatic
+cgiwrapper_conf=Path to cgi-wrapper.conf,8
+pid_file=Path to Hiawatha PID file,3,Work out automatically

@@ -1,14 +1,14 @@
 #!/usr/bin/perl
 # Creates the debian-style directory structure
 
-require './nginx-lib.pl';
+require './hiawatha-lib.pl';
 &ReadParse();
 
 &ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1);
 
-my $avail = $config{'nginx_dir'}.'/sites-available';
-my $enbld = $config{'nginx_dir'}.'/sites-enabled';
-my $confd = $config{'nginx_dir'}.'/conf.d';
+my $avail = $config{'hiawatha_dir'}.'/sites-available';
+my $enbld = $config{'hiawatha_dir'}.'/sites-enabled';
+my $confd = $config{'hiawatha_dir'}.'/conf.d';
 #create virt_link dir
 if (!mkdir($enbld)) {
 	print "<p>".&text('mk_dirs_fail', $enbld, $!)."</p>";
