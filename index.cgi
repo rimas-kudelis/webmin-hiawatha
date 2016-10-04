@@ -86,7 +86,7 @@ print ui_tabs_start_tab('mode', 'existing');
     print &ui_form_start("delete_server.cgi", "get");
     print &ui_links_row(\@links);
     print &ui_columns_start([
-    $text{'index_delete'},
+    "",
     $text{'index_name'},
 	$text{'index_enabled'},
     $text{'index_addr'}.$text{'sep_by'}." '".$config{'join_ch'}."'",

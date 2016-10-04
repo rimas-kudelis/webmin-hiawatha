@@ -7,7 +7,6 @@ index_modify=<br /><br /> 1) Module configuration is probably incorrect - click 
 index_install=, or <br /><br /> 2)
 index_mismatch=<p>Hiawatha is installed at <tt>$1</tt>, but the path in your configuration settings is <tt>$2</tt>.</p>
 
-index_delete=Delete
 index_enabled=Active? (click to toggle)
 index_name=Server Name
 index_addr=Addresses
@@ -18,6 +17,8 @@ index_view=View
 
 disa=Active (click to Disable)
 enab=Inactive (click to Enable)
+
+index_delete=Delete Servers
 
 gl_edit=Edit hiawatha.conf
 gl_cgiwrapper=Edit cgi-wrapper.conf
