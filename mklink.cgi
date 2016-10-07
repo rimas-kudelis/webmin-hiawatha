@@ -7,12 +7,11 @@ require './hiawatha-lib.pl';
 # Create symlink
 my $err = &create_webfile_link($in{'vhost'});
 if ($err) {
-  &ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1, undef,
+  &ui_print_header(undef, $text{'index_title'}, "", undef, 1, undef, undef,
     &restart_button()."<br>".
     &help_search_link("hiawatha webserver", "man", "doc", "google"), undef, undef,
     &text('index_version', $server_info{'version'}));
 
-  &ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1);
   &error($err);
 }
 

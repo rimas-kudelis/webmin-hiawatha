@@ -39,7 +39,6 @@ foreach $v (@virts) {
   &restart_button()."<br>".
   &help_search_link("hiawatha webserver", "man", "doc", "google"), undef, undef,
   &text('index_version', $server_info{'version'}));
-#&ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1);
 
 # Check if Hiawatha is installed
 if (!-x $config{'hiawatha_path'}) {

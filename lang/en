@@ -47,6 +47,11 @@ hiawatha_apply=Apply Changes
 hiawatha_stop=Stop Hiawatha
 hiawatha_start=Start Hiawatha
 
+server_details=Server Details
+server_version=Server version
+enabled_modules=Enabled modules
+module_index=Hiawatha index
+
 #stop_hiawatha=Hiawatha stopped manually
 stop_epid=Failed to open PID file
 stop_esig=Failed to send SIGTERM to process $1

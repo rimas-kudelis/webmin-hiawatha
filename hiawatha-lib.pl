@@ -25,19 +25,29 @@ sub get_servers
 sub get_hiawatha_info
 {
   my $info = &backquote_command("hiawatha -v 2>&1");
-  my @lines = split(/\n/,$info);
-  my @args = split(/,\s+/,$lines[0]); # ignore the copyright line
+  # 10.3 output:
+  # Hiawatha v10.3, cache, IPv6, Monitor, reverse proxy, TLS v2.2.1, Tomahawk, URL toolkit, XSLT
+  # Copyright (c) by Hugo Leisink <hugo@leisink.net>
+
+  # 10.4 output:
+  # Hiawatha v10.4, copyright (c) by Hugo Leisink <hugo@leisink.net>
+
+  my @lines = split(/\n/, $info);
+  my @modules = split(/,\s+/, $lines[0]); # ignore the copyright line
   my %vars;
-  my @modules;
-  foreach (@args) {
-    if ($_ =~ /Hiawatha\s+v/) {
-      my @a = split(/\sv/,$_);
-      my @ver = split(/\s/,$a[1]);
-      $vars{'version'} = $ver[0];
-    }
-    else {
-      push(@modules, $_);
-    }
+  my $version = shift @modules;
+  if ($version =~ /Hiawatha\s+v/) {
+    my @a = split(/\sv/,$version);
+    my @ver = split(/\s/,$a[1]);
+    $vars{'version'} = $ver[0];
+  }
+  # Versions are compared as strings here, but this should do until with versions 10.0 to 99.
+  if ($vars{'version'} >= "10.4") {
+    # Separate option to get module list, here's its output:
+    # Enabled modules: Cache, ChallengeClient, FileHashes, IPv6, Monitor, ReverseProxy, TLS v2.3.0, ThreadPool, Tomahawk, UrlToolkit, XSLT
+    $info = &backquote_command("hiawatha -m 2>&1");
+    my @temp = split(/:\s*/, $info);
+    @modules = split(/,\s*/, @temp[1]);
   }
   $vars{'modules'} = [ @modules ];
   return %vars;
