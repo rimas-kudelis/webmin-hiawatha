@@ -14,5 +14,5 @@ stop_cmd=1
 apply_cmd=1
 hiawatha_conf=/etc/hiawatha/hiawatha.conf
 mimetype_conf=/etc/hiawatha/mimetype.conf
-cgiwrapper_conf=/etc/hiawatha/cgiwrapper.conf
+cgiwrapper_conf=/etc/hiawatha/cgi-wrapper.conf
 pid_file=
