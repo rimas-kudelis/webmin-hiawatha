@@ -1,19 +1,20 @@
 #!/usr/bin/perl
-# Remove link to virtual server
+# Disable virtual host
 
 require './hiawatha-lib.pl';
 &ReadParse();
 
-my $file = "$server_root/$config{'virt_dir'}/$in{'vhost'}";
-if (!-e $file) {
-  $file = "$server_root/$in{'vhost'}";
+# Delete symlink
+my $err = &delete_webfile_link($in{'vhost'});
+if ($err) {
+  &ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1, undef,
+    &restart_button()."<br>".
+    &help_search_link("hiawatha webserver", "man", "doc", "google"), undef, undef,
+    &text('index_version', $server_info{'version'}));
+
+  &ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1);
+  &error($err);
 }
 
-#print &text('_header', "<tt>$file</tt>"),"<p>\n";
-
-# delete symlink for Debian style
-  my $err = &delete_webfile_link($file);
-
-#&ui_print_header(undef, $text{'_title'}, "");
-&webmin_log("virts", "unlinked", $in{'vhost'});
+&webmin_log("unlink", $in{'vhost'}, $err);
 &redirect("");

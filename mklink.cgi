@@ -1,26 +1,20 @@
 #!/usr/bin/perl
-# Delete of virtual servers
+# Enable virtual host
 
 require './hiawatha-lib.pl';
 &ReadParse();
 
-my $file = "$server_root/$config{'virt_dir'}/$in{'vhost'}";
-if (!-e $file) {
-	$file = "$server_root/$in{'vhost'}";
-}
-
-# delete symlink for Debian style
-my $err = &create_webfile_link($file);
+# Create symlink
+my $err = &create_webfile_link($in{'vhost'});
 if ($err) {
-	&ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1, undef,
-		&restart_button()."<br>".
-		&help_search_link("hiawatha", "man", "doc", "google"), undef, undef,
-		&text('index_version', $server_info{'version'}));
+  &ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1, undef,
+    &restart_button()."<br>".
+    &help_search_link("hiawatha webserver", "man", "doc", "google"), undef, undef,
+    &text('index_version', $server_info{'version'}));
 
-		&ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1);
-		&error($err);
+  &ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1);
+  &error($err);
 }
-&error($err) if ($err);
 
-&webmin_log("mklink", $file, $err);
+&webmin_log("mklink", $in{'vhost'}, $err);
 &redirect("");

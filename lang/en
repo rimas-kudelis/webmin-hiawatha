@@ -7,26 +7,41 @@ index_modify=<br /><br /> 1) Module configuration is probably incorrect - click 
 index_install=, or <br /><br /> 2)
 index_mismatch=<p>Hiawatha is installed at <tt>$1</tt>, but the path in your configuration settings is <tt>$2</tt>.</p>
 
-index_enabled=Active? (click to toggle)
-index_name=Server Name
+index_enabled=Enabled?
+index_name=File Name
 index_addr=Addresses
-index_port=Port
-index_root=Document Roots
+index_bind=Bindings
+index_root=Document Root
 index_url=URL
-index_view=View
+index_all=All
 
-disa=Active (click to Disable)
-enab=Inactive (click to Enable)
+tab_global=Global Configuration
+tab_existing_vhosts=Existing Virtual Hosts
+tab_create_vhost=Create Virtual Host
 
+
+new_file_contents=Config
+
+active=<i class="fa fa-check-square-o"></i> Yes
+inactive=<i class="fa fa-square-o"></i> No
+
+click_enable=Click to enable
+click_disable=Click to disable
+click_edit=Click to edit
+click_visit=Click to visit
+
+index_enable=Enable Servers
+index_disable=Disable Servers
 index_delete=Delete Servers
 
 gl_edit=Edit hiawatha.conf
 gl_cgiwrapper=Edit cgi-wrapper.conf
+gl_mimetype=Edit mimetype.conf
 gl_details=View Hiawatha details
 gl_dirs=Make Debian-style directory structure
 
 manual_title=Edit Config File
-manual_header=Use the text box below to manually edit the Hiawatha config file for $1.
+manual_header=Use the text box below to manually edit the Hiawatha config file $1.
 
 hiawatha_apply=Apply Changes
 hiawatha_stop=Stop Hiawatha
@@ -38,10 +53,6 @@ stop_esig=Failed to send SIGTERM to process $1
 
 #start_hiawatha=Hiawatha started manually
 start_err=Failed to start Hiawatha
-
-#test_err=Couldn't test Hiawatha configuration
-
-sep_by=, separated by
 
 mk_dirs_fail=Failed to create $1 ($2)
 mk_dirs_ok=Created $1 OK

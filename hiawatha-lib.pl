@@ -207,39 +207,55 @@ sub test_config
 # Creates a link in the debian-style link directory for a new website's file
 sub create_webfile_link
 {
-	my ($file, @array) = @_;
-	my $name = basename($file);
-	my $link = "$server_root/$config{'link_dir'}/$name";
-	&lock_file($file);
-#	$ret = "linking $file to $link...";
-	if (!symlink($file, $link)) {
-		return $1;
-	}
-	if (!-l $link) {
-		return undef;
-	}
-	&unlock_file($file);
-#	return $ret;
+  my $name = basename($_);
+  my $file = "$server_root/$config{'virt_dir'}/$name";
+  my $link = "$server_root/$config{'link_dir'}/$name";
+
+  &lock_file($file);
+  if (!symlink($file, $link)) {
+    return "Could not create a link for $name.";
+  }
+  if (!-l $link) {
+    return undef;
+  }
+  &unlock_file($file);
 }
 
-# delete link to sites available
+# delete link to sites-available
 sub delete_webfile_link
 {
-  my ($file, @array) = @_;
-  my $name = basename($file);
+  my $name = basename($_);
   my $link = "$server_root/$config{'link_dir'}/$name";
-#	$ret = "removing $link...";
-# test if symlink already deleted
- if (!-l $link) {
-   return undef;
- }
- &lock_file($link);
- unlink($link);
- &unlock_file($link);
-# test symlink deleted
+
+  if (!-l $link) {
+    return undef;
+  }
+  &lock_file($link);
+  unlink($link);
+  &unlock_file($link);
+
   if (-l $link) {
-#    return "${ret}The link for $_ was not removed.";
-    return "The link for $_ was not removed.";
+    return "Could not remove a link for $name.";
+  }
+}
+
+# delete virtual host along with the link in sites-available
+sub delete_virtual_host
+{
+  my $name = basename($_);
+  my $file = "$server_root/$config{'virt_dir'}/$name";
+
+  # delete symlink for Debian style
+  my $err = &delete_webfile_link($file);
+
+  return $err if ($err);
+
+  # delete file
+  unlink($file);
+
+  # test if file was deleted
+  if (-e $file) {
+    return("Could not delete the virtual server $name.");
   }
 }
 
