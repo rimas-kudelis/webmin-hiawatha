@@ -8,13 +8,10 @@ do 'hiawatha-lib.pl';
 # For mode 0, returns 1 if installed, 0 if not
 sub is_installed
 {
-local @st = stat($config{'hiawatha_path'});
-return 0 if (!@st);
-if (!$config{'hiawatha_version'}) {
-#    || $st[7] != $config{'hiawatha_size'} || $st[9] != $config{'hiawatha_mtime'}) {
-	# Version is not cached - need to actually check
-	return 0 if (!&get_hiawatha_info(\$dummy));
-	}
-return $_[0] ? 2 : 1;
+  local @st = stat($config{'hiawatha_path'});
+  return 0 if (!@st);
+  if (!$config{'hiawatha_version'}) {
+    return 0 if (!&get_hiawatha_info(\$dummy));
+  }
+  return $_[0] ? 2 : 1;
 }
-

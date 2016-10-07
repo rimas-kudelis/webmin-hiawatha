@@ -43,29 +43,29 @@ foreach $v (@virts) {
 
 # Check if Hiawatha is installed
 if (!-x $config{'hiawatha_path'}) {
-	print &text('index_notfound', $config{'hiawatha_path'}),
-		$text{'index_either'}. &text('index_modify',
-			"$gconfig{'webprefix'}/config.cgi?$module_name").
-		$text{'index_install'};	#, "<p>\n";
+  print &text('index_notfound', $config{'hiawatha_path'}),
+    $text{'index_either'}. &text('index_modify',
+      "$gconfig{'webprefix'}/config.cgi?$module_name").
+    $text{'index_install'};  #, "<p>\n";
 
-	&foreign_require("software", "software-lib.pl");
-	$lnk = &software::missing_install_link("hiawatha", $text{'index_hiawatha'},
-		"../$module_name/", $text{'index_title'});
-	print $lnk,"<p>\n" if ($lnk);
+  &foreign_require("software", "software-lib.pl");
+  $lnk = &software::missing_install_link("hiawatha", $text{'index_hiawatha'},
+    "../$module_name/", $text{'index_title'});
+  print $lnk,"<p>\n" if ($lnk);
 
-	&ui_print_footer("/", $text{'index_return'});
-	exit;
+  &ui_print_footer("/", $text{'index_return'});
+  exit;
 }
 
 ## Check if configuration matches which command
 # which gets the wrong path!!
 #my $whhiawatha = &backquote_command("(which hiawatha) 2>&1");
 #if ($whhiawatha ne $config{'hiawatha_path'}) {
-#	print &text('index_mismatch', $whhiawatha, $config{'hiawatha_path'}),
-#		&text('index_modify', "$gconfig{'webprefix'}/config.cgi?$module_name");
+#  print &text('index_mismatch', $whhiawatha, $config{'hiawatha_path'}),
+#    &text('index_modify', "$gconfig{'webprefix'}/config.cgi?$module_name");
 #
-#	&ui_print_footer("/", $text{'index_return'});
-#	exit;
+#  &ui_print_footer("/", $text{'index_return'});
+#  exit;
 #}
 
 # Start main display
@@ -92,7 +92,7 @@ print ui_tabs_start(\@tabs, 'mode', 'existing');
     &config_icons($global_icon, $cgiwrapper_icon, $mimetype_icon, $det_icon);
   print ui_tabs_end_tab('mode', 'global');
 
-print ui_tabs_start_tab('mode', 'existing');
+  print ui_tabs_start_tab('mode', 'existing');
     @links = ( );
     push(@links, &select_all_link("d"), &select_invert_link("d"));
     print &ui_form_start("mass_action.cgi", "get");
@@ -140,13 +140,12 @@ print ui_tabs_start_tab('mode', 'existing');
         print &ui_table_row($text{'new_file_contents'},
           &ui_textarea("directives", undef, 25, 80, undef, undef,"style='width:100%'"));
 
-	    print &ui_table_row("",
-	        &ui_submit($text{'save'}));
-
-	    print &ui_table_end();
+        print &ui_table_row("",
+          &ui_submit($text{'save'}));
+      print &ui_table_end();
     print &ui_form_end();
-print ui_tabs_end_tab('mode', 'create');
+  print ui_tabs_end_tab('mode', 'create');
 
 print ui_tabs_end();
-#}
+
 ui_print_footer("/", $text{'index'});

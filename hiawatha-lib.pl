@@ -200,8 +200,6 @@ sub test_config
   #elsif ($out =~ /Syntax error in/) {
     return "<pre>".&html_escape($out)."</pre>";
   }
-
-  #return $text{'test_err'};
 }
 
 # Creates a link in the debian-style link directory for a new website's file
@@ -262,14 +260,14 @@ sub delete_virtual_host
 # turns list of icons into link,text,icon table
 sub config_icons
 {
-local (@titles, @links, @icons);
-for($i=0; $i<@_; $i++) {
-		push(@links, $_[$i]->{'link'});
-		push(@titles, $_[$i]->{'name'});
-		push(@icons, $_[$i]->{'icon'});
-	}
-&icons_table(\@links, \@titles, \@icons, 3);
-print "<p>\n";
+  local (@titles, @links, @icons);
+  for($i=0; $i<@_; $i++) {
+    push(@links, $_[$i]->{'link'});
+    push(@titles, $_[$i]->{'name'});
+    push(@icons, $_[$i]->{'icon'});
+  }
+  &icons_table(\@links, \@titles, \@icons, 3);
+  print "<p>\n";
 }
 
 #gives this url
@@ -283,26 +281,25 @@ sub this_url
 
 sub parse_config
 {
-	local (%found, $temp, $fname, @params);
+  local (%found, $temp, $fname, @params);
 
-	$fname = shift;
-	while (my $temp = shift) {
-		push (@params, $temp);
-	}	# insert each other argument into array
-	open FILE, $fname or die "Couldn't open file: $!"; 
-	while (my $line = <FILE>) {
-		chop;
-		$line =~ s/^\s*#.*$//g;
-		foreach $a (@params) {
-			if ($line =~ /^\s*$a\s*=\s*(.+)$/) {
-				$temp = $1;
-				push (@{$found{$a}}, split ("\s*,\s*", $1));
-			}
-		}
-	}
-	close FILE;
-	return %found;
+  $fname = shift;
+  while (my $temp = shift) {
+    push (@params, $temp);
+  } # insert each other argument into array
+  open FILE, $fname or die "Couldn't open file: $!";
+  while (my $line = <FILE>) {
+    chop;
+    $line =~ s/^\s*#.*$//g;
+    foreach $a (@params) {
+      if ($line =~ /^\s*$a\s*=\s*(.+)$/) {
+        $temp = $1;
+        push (@{$found{$a}}, split ("\s*,\s*", $1));
+      }
+    }
+  }
+  close FILE;
+  return %found;
 }
 
 1;
-

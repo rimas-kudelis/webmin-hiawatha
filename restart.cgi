@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# reload.cgi
+# restart.cgi
 # reload Hiawatha config file or restart Hiawatha
 
 require './hiawatha-lib.pl';

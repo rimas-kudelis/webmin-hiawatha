@@ -19,12 +19,12 @@ print &ui_hidden("editfile", $file),"\n";
 
 $lref = &read_file_lines($file);
 if (!defined($start)) {
-	$start = 0;
-	$end = @$lref - 1;
-	}
+  $start = 0;
+  $end = @$lref - 1;
+}
 for($i=$start; $i<=$end; $i++) {
-	$buf .= $lref->[$i]."\n";
-	}
+  $buf .= $lref->[$i]."\n";
+}
 print &ui_textarea("directives", $buf, 25, 80, undef, undef,"style='width:100%'"),"<br>\n";
 print &ui_submit($text{'save'});
 print &ui_form_end();
