@@ -12,6 +12,7 @@ join_ch=Display directive values separated by,0,", "
 
 test_config=Test config file before applying changes?,1,1-Yes,0-No
 test_cmd=Test configuration with command,10,1-Use init.d,-Use Hiawatha command
+virt_template=New virtual server Template,9,undef,undef,⏎
 
 line2=System configuration,11
 hiawatha_dir=Hiawatha server config directory,7

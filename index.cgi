@@ -136,8 +136,11 @@ print ui_tabs_start(\@tabs, 'mode', 'existing');
         print &ui_table_row($text{'index_name'},
           &ui_textbox("newserver", undef, 40));
 
+        my $server_template = $config{'virt_template'};
+        $server_template =~ s/⏎/\n/g;
+
         print &ui_table_row($text{'new_file_contents'},
-          &ui_textarea("directives", undef, 25, 80, undef, undef,"style='width:100%'"));
+          &ui_textarea("directives", $server_template, 25, 80, undef, undef,"style='width:100%'"));
 
         print &ui_table_row("",
           &ui_submit($text{'save'}));

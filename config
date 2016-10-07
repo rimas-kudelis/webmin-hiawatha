@@ -6,6 +6,7 @@ link_dir=sites-enabled
 join_ch=, 
 test_config=1
 test_cmd=1
+virt_template=# Edit the virtual host definition below.⏎# This template can be changed in the Module config.⏎⏎VirtualHost {⏎	Hostname = www.my-domain.com⏎	WebsiteRoot = /var/www/my-domain/public⏎#	AccessLogfile = /var/www/my-domain/log/access.log⏎#	ErrorLogfile = /var/www/my-domain/log/error.log⏎#	TimeForCGI = 5⏎#	UseFastCGI = PHP7⏎#	UseToolkit = banshee⏎#	UseDirectory = static, files⏎}⏎
 hiawatha_dir=/etc/hiawatha
 hiawatha_path=/usr/sbin/hiawatha
 hiawatha_version=
