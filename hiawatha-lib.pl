@@ -215,7 +215,8 @@ sub test_config
 # Creates a link in the debian-style link directory for a new website's file
 sub create_webfile_link
 {
-  my $name = basename($_);
+  my ($file, @array) = @_;
+  my $name = basename($file);
   my $file = "$server_root/$config{'virt_dir'}/$name";
   my $link = "$server_root/$config{'link_dir'}/$name";
 
@@ -232,7 +233,8 @@ sub create_webfile_link
 # delete link to sites-available
 sub delete_webfile_link
 {
-  my $name = basename($_);
+  my ($file, @array) = @_;
+  my $name = basename($file);
   my $link = "$server_root/$config{'link_dir'}/$name";
 
   if (!-l $link) {
@@ -250,7 +252,8 @@ sub delete_webfile_link
 # delete virtual host along with the link in sites-available
 sub delete_virtual_host
 {
-  my $name = basename($_);
+  my ($file, @array) = @_;
+  my $name = basename($file);
   my $file = "$server_root/$config{'virt_dir'}/$name";
 
   # delete symlink for Debian style
