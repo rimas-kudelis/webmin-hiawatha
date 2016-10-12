@@ -1,16 +1,14 @@
 # webmin-hiawatha
 
-Webmin module for managing Hiawatha web server. Based on a similar module for Nginx by Justin Hoffman and @git-matt.
-
-Currently, it has the following functionality:
+You are looking at the Webmin module for managing Hiawatha web server. Currently, it has the following functionality:
 - start, stop and restart Hiawatha
 - test config before (re)starting
-- edit Hiawatha configuration files (namely, `hiawatha.conf`, `cgi-wrapper.conf` and `mimetype.conf`)
+- edit Hiawatha configuration files (namely, `hiawatha.conf`, `cgi-wrapper.conf`, and `mimetype.conf`)
 - list, view, create, edit, enable, disable and delete virtual hosts
 
 ## Installation
 
-**Note: I looked up all paths in a Debian box. They might be different in other distributions and/or operating systems. Be sure to adapt them if necessary.**
+**Note: I looked up all paths in a Debian server. They might be different in other distributions and/or operating systems. Be smart and adapt them if necessary.**
 
 To install, place all files in `/usr/share/webmin/hiawatha/`, then enable the module for the users which should have access to it (I edited /etc/webmin/webmin.acl to achieve that, but I suspect it should be doable from the web interface as well).
 
@@ -40,3 +38,7 @@ The Module Config button (should be at the top left of the module UI) allows con
 If you found a bug, or have a feature in mind, feel free to open an issue or create a pull request here. However, bear in mind that I don't plan to spend much time on this project, so I'm not making any promises regarding support (and PR's are preferred).
 
 Also, I'm looking for (co-)maintainers for this module, so if you are interested, please let me know.
+
+## Credits
+ 
+This module is based on [NginX module for Webmin](https://github.com/git-matt/webmin-nginx) by Justin Hoffman and @git-matt.
