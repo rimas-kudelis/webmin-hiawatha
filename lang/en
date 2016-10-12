@@ -1,4 +1,4 @@
-index_title=Hiawatha webserver
+index_title=Hiawatha Webserver
 index_version=Hiawatha version $1
 index_defserv=Default Host
 index_notfound=The Hiawatha Webserver could not be found, as stated in your configuration<tt>$1</tt>:
