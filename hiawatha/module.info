@@ -5,5 +5,4 @@ name=Hiawatha
 desc=Hiawatha Webserver
 longdesc=Manage Hiawatha configuration
 category=servers
-os_support=*-linux solaris freebsd
-version=0.1
+version=0.9
