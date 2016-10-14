@@ -8,9 +8,18 @@ You are looking at the Webmin module for managing Hiawatha web server. Currently
 
 ## Installation
 
-**Note: I looked up all paths in a Debian server. They might be different in other distributions and/or operating systems. Be smart and adapt them if necessary.**
+It's probably easiest to use the Webmin Configuration module to add Hiawatha module to your setup. You can either download a release package from GitHub, or build one yourself using the supplied `makepackage.sh` script (note you have to run it while in the directory in which it resides). The script will create a `hiawatha.wbm.gz` file for you.
 
-To install, place all files in `/usr/share/webmin/hiawatha/`, then enable the module for the users which should have access to it (I edited /etc/webmin/webmin.acl to achieve that, but I suspect it should be doable from the web interface as well).
+To install the module, do the following:
+
+1. Login to Webmin as root and go to Webmin → Webmin Configuration → Webmin Modules.
+2. In the Install tab (default), choose how you want to install the file: if you have it on your server, choose "From local file" and navigate to it, otherwise choose "From uploaded file" and upload it from your computer.
+3. List Webmin users to whom you want to grant access to this plugin, or select "Grant access to all Webmin users".
+4. Click "Install Module".
+
+After performing these steps, you should find this plugin in the Servers category. There are a few additional steps to perform though, so read on.
+
+**Note: I looked up the paths below on a Debian server. They might be different in other distributions and/or operating systems. Be smart and adapt them if necessary.**
 
 Virtual hosts managed by this module will be stored in their own snippet files in `/etc/hiawatha/sites-available/`, and enabled by creating symlinks in `/etc/hiawatha/sites-enabled/`. You should create these directories as root:
 ```
@@ -41,4 +50,4 @@ Also, I'm looking for (co-)maintainers for this module, so if you are interested
 
 ## Credits
  
-This module is based on [NginX module for Webmin](https://github.com/git-matt/webmin-nginx) by Justin Hoffman and @git-matt.
+This module is based on NginX module for Webmin [by Justin Hoffman](https://www.justindhoffman.com/project/nginx-webmin-module) with [improvements from @git-matt](https://github.com/git-matt/webmin-nginx).
