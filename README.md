@@ -26,7 +26,7 @@ Virtual hosts managed by this module will be stored in their own snippet files i
 sudo mkdir /etc/hiawatha/sites-available/
 sudo mkdir /etc/hiawatha/sites-enabled/
 ```
-Most people who have run a web server under Debian or Ubuntu should find this setup quiet familiar and convenient. Then to make it actually work in Hiawatha, you have to add the following line at the end of `/etc/hiawatha/hiawatha.conf`:
+Most people who have run a web server under Debian or Ubuntu should find this setup quite familiar and convenient. Then to make it actually work in Hiawatha, you have to add the following line at the end of `/etc/hiawatha/hiawatha.conf`:
 ```
 Include sites-enabled
 ```
