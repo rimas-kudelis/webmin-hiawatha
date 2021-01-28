@@ -44,9 +44,9 @@ The Module Config button (should be at the top left of the module UI) allows con
 
 ## Help, Support and Contributing
 
-If you found a bug, or have a feature in mind, feel free to open an issue or create a pull request here. However, bear in mind that I don't plan to spend much time on this project, so I'm not making any promises regarding support (and PR's are preferred).
+I HAVE NO PLANS TO MAINTAIN THIS MODULE MYSELF, since I'm using neither Hiawatha nor Webmin. If you're intrested in becoming the maintainer of this project yourself, please let me know.
 
-Also, I'm looking for (co-)maintainers for this module, so if you are interested, please let me know.
+That said, if you found a bug, or have a feature in mind, feel free to open an issue or create a pull request here (PR's are preferred).
 
 ## Credits
  
