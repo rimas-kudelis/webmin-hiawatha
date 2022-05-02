@@ -44,10 +44,8 @@ The Module Config button (should be at the top left of the module UI) allows con
 
 ## Help, Support and Contributing
 
-I HAVE NO PLANS TO MAINTAIN THIS MODULE MYSELF, since I'm using neither Hiawatha nor Webmin. That's why this repository is currently archived.
-
-If you're intrested in becoming the maintainer of this project yourself, or want to make a pull request, please let me know via my email (you'll find it at the top of `git log`).
+I HAVE NO PLANS TO MAINTAIN THIS MODULE MYSELF, since I'm using neither Hiawatha nor Webmin. That's why this repository is currently archived. If you're intrested in becoming the maintainer of this project yourself, or want to make a pull request, please let me know via my email (you'll find it at the top of `git log`).
 
 ## Credits
  
-This module is based on NginX module for Webmin [by Justin Hoffman](https://www.justindhoffman.com/project/nginx-webmin-module) with [improvements from @git-matt](https://github.com/git-matt/webmin-nginx).
+This module is based on NginX module for Webmin [by Justin Hoffman](https://www.justindhoffman.com/project/nginx-webmin-module) with [improvements by Matt Scott](https://github.com/git-matt/webmin-nginx). It was adapted for Hiawatha by [Rimas Kudelis](https://github.com/rimas-kudelis).
